@@ -9,7 +9,7 @@ const port = process.env.PORT;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api/auth', authRoutes);
+app.use('/auth', authRoutes);
 app.use('/feed', feedRoutes);
 
 app.listen(port, () => {

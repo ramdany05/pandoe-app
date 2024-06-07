@@ -7,12 +7,13 @@ class FeedRepository {
             console.log("Creating feed with data:", feedData); // Log input data
             return await prisma.fundingFeed.create({
                 data: {
+                    id: feedData.id,
                     userId: feedData.userId,
                     executiveSummary: feedData.executiveSummary,
                     thumbnail: feedData.thumbnail,
                     pitchDeck: feedData.pitchDeck,
                     amountRaised: feedData.amountRaised,
-                    endDate: new Date(feedData.endDate)
+                    endDate: new Date(feedData.endDate) // Ensure proper Date object
                 }
             });
         } catch (error) {
@@ -43,6 +44,27 @@ class FeedRepository {
         }
     }
 
+    async updateFeed(id, feedData) {
+        try {
+            return await prisma.fundingFeed.update({
+                where: {
+                    id: id
+                },
+                data: {
+                    id: feedData.id,
+                    userId: feedData.userId,
+                    executiveSummary: feedData.executiveSummary,
+                    thumbnail: feedData.thumbnail,
+                    pitchDeck: feedData.pitchDeck,
+                    amountRaised: feedData.amountRaised,
+                    endDate: new Date(feedData.endDate)
+                },
+            });
+        } catch (error) {
+            throw new Error('Error updating feed: ' + error.message);
+        }
+    }    
+    
     async deleteFeedById(id) {
         try {
             return await prisma.fundingFeed.delete({

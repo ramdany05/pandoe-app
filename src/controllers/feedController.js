@@ -39,6 +39,19 @@ exports.createFeed = async (req, res) => {
     }
 };
 
+exports.updateFeed = async (req, res) => {
+    const feedId = req.params.id;
+    const feedData = req.body;
+
+    try {
+        const updatedFeed = await feedRepository.updateFeed(feedId, feedData);
+        res.status(200).json(updatedFeed);
+    } catch (error) {
+        res.status(500).json({ message: "An error occurred while updating the feed", error: error.message });
+    }
+};
+
+
 exports.deleteFeed = async (req, res) => {
     const feedId = req.params.id;
 
